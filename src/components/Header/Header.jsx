@@ -11,8 +11,11 @@ function Header() {
 
   return (
     <div className="header-main">
-      <div className="header-buttons">
-        <a onClick={() => handleButtonClick("/gallery")} className="header-button">Galería</a>
+      <div className="header-rules">
+        <a onClick={() => handleButtonClick()} className="header-rules-button">Reglas</a>
+      </div>
+      <div className="header-reset">
+        <a onClick={() => handleButtonClick()} className="header-reset-button">Resetear</a>
       </div>
     </div>
   );

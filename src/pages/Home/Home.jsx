@@ -1,28 +1,28 @@
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
+import './Home.css'
 
 function Rules() {
 
     return (
         <>
-        <Header />
-        <div class="main-body">
-            <p>Para empezar necesitáis crear una personalizada donde jugar partidas con vuestros amig@s, el juego consta de dos equipos que obtienen su facción de runaterra por una página de manera aleatoria, al equipo que le toque dicha facción detallada abajo deberá seleccionar campeones que NO estén baneados (🔪)
+            <Header />
+            <div class="main-menu">
+                <div class="rules">
+                    <p>Se recomienda tener todos los campeones para evitar dolores de cabeza tanto a la hora de elegir regiones o campeones, aun así podéis jugar igual siguiendo las reglas.</p>
 
-Es importante banear al campeón, de eso se encargará SÓLO UN JUGADOR como anfitrión de las personalizadas, para hacerlo utilizad la reacción en dicho campeón con un cuchillo 
+                    <p>Como comienzo del minijuego se necesitará crear una personalizada donde jugar partidas con vuestros colegas, mientras más gente llene dicha personalizada mejor será la experiencia de juego, dicho juego consta de dos equipos que obtienen su facción y campeones de runaterra de manera aleatoria elegida por la página y que ésta misma también se encargará de baneará los campeones que salgan seleccionados una vez que se hace cada dos tiradas de azar, todo esto lo hará de forma completamente automática. Cualquier fallo o error me lo comunican.</p>
 
-Una vez que se haya pickeado o utilizado cierto campeón de su respectiva facción se baneará hasta nueva ronda, con nueva ronda me refiero a llegar al punto en el que se baneen casi todos los campeones y/o no hayan mas campeones disponibles o suficientes para seguir jugando partidas. En el caso de que no queden suficientes campeones de una facción para completar un equipo se elegirá otra mas SOLO PARA RELLENAR PARA AQUELLOS QUE NO HAYAN ELEGIDO AÚN, no está permitido intercambiar campeones 
+                    <p>Por temas de diversión y evitar destrozos injustos en las partidas en ningún momento del juego está permitido intercambiarse campeones tanto en un mismo equipo como con el equipo contrario, lo que te toque de campeón es con lo que te quedas.</p>
 
-Y si alguien no tiene un campeón de una facción en concreto, se vuelve a elegir de nuevo una facción SÓLO para esa persona pero el campeón que deberá elegir de esa facción deberá ser elegido por el equipo rival 
+                    <p>En el caso de que una región no tenga suficientes campeones para completar lo que haga falta, se elegirá antes el número de campeones y se hace click en el botón de azar.</p>
 
-Hay campeones que tienen su origen y raza, lo que hacemos es considerar que pertenece a esas facciones, por ejemplo en el caso de Poppy que es una yordle demaciana, en la página oficial lore de league of legends (Universo league of legends) solo sale que es demaciana o en el caso de Mordekaiser que es de las islas de la sombra pero en su apartado pone que es de noxus asi que para evitar confusiones y quebraderos de cabeza suponemos que son de ambas facciones, de todas maneras lo tendréis más facil utilizando esta lista como guía 
+                    <p>En el caso de que X jugadores no tenga dicho campeón que le ha tocado, como "penalización" se vuelve a elegir región nuevamente y el equipo contrario del jugador es el que hace la selección.</p>
 
-Se recomienda tener todos los campeones para no marear tanto a la hora de elegir facciones o champs, aun asi podeis jugar igual siguiendo las reglas aqui arriba
-El propósito para este evento es jugar por diversión no para tryhardear, no me seas un neandertal sin vida que solo juegas mains por puro placer y para joder a los demas, para eso te vas a rankear a diamante
-
-Hay 1 región que no está de manera oficial: Icathia. Esta misma sale en el mapa interactivo justo debajo de El Vacío, pero tiene suficiente relevancia como para colocar los dos campeones que provienen de ahí, Jax y Zilean (que raro, por qué Zilean)</p>
-        </div>
-        <Footer />
+                    <p>El propósito para este evento es jugar por diversión no para tryhardear, no me seas un neandertal sin vida que para eso, te vas a rankear a diamante.</p>
+                </div>
+            </div>
+            <Footer />
         </>
     )
 }
