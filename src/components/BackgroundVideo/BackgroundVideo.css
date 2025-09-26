@@ -1,0 +1,9 @@
+.video-container {
+    display: flex;
+    position: fixed;
+    top: -8vh;
+    left: 0vw;
+    width: 118.55vw;
+    height: 118.55vh;
+    z-index: -10;
+}
