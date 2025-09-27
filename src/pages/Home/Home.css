@@ -6,7 +6,7 @@
 }
 
 .paragraph-container {
-    display: flex;
+    display: block;
     flex-direction: column;
     text-align: justify;
     align-items: center;
@@ -16,6 +16,11 @@
     font-size: 1.5rem;
     color: #FFFF;
     user-select: none;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
+    height: auto;
+    min-height: 0;
 }
 
 .paragraph-p {
