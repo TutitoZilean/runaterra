@@ -1,5 +1,12 @@
+.main-menu {
+    display: flex;
+    flex-direction: column;
+    width: 99vw;
+}
+
 .rules {
     position: absolute;
-    width: 100vm;
-    height: 0vh;
+    display: none;
+    width: 80vm;
+    height: 100vh;
 }

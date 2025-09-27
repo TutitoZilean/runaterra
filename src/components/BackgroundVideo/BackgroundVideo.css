@@ -1,4 +1,5 @@
 .video-container {
+    visibility: hidden;
     display: flex;
     position: fixed;
     top: -8vh;
