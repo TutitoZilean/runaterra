@@ -1,4 +1,4 @@
-// Función para togglear solo la visibilidad (mantiene el espacio)
+// Función con animación suave que termina en display: none
 export function toggleTextVisibility() {
   const paragraphContainer = document.querySelector('.paragraph-container');
   
@@ -7,33 +7,50 @@ export function toggleTextVisibility() {
     return;
   }
   
-  // Alternar solo la visibilidad (mantiene display: block)
-  if (paragraphContainer.style.visibility === 'hidden' || paragraphContainer.style.visibility === '') {
+  if (paragraphContainer.style.display === 'none' || paragraphContainer.style.display === '') {
+    // MOSTRAR: Animación suave
+    paragraphContainer.style.display = 'flex'; // Usa flex para mantener tu estilo
     paragraphContainer.style.visibility = 'visible';
-    paragraphContainer.style.opacity = '1'; // Opcional: para transiciones suaves
+    
+    // Timeout muy corto para que aplique el display antes de la animación
+    setTimeout(() => {
+      paragraphContainer.style.opacity = '1';
+    }, 10); // Solo 10ms, no 400ms
+    
   } else {
+    // OCULTAR: Primero animación, luego display: none
+    paragraphContainer.style.opacity = '0';
     paragraphContainer.style.visibility = 'hidden';
-    paragraphContainer.style.opacity = '0'; // Opcional: para transiciones suaves
+    
+    // Esperar a que termine la animación para aplicar display: none
+    setTimeout(() => {
+      paragraphContainer.style.display = 'none';
+    }, 2000); // MISMO tiempo que la transición CSS (2 segundos)
   }
 }
 
-// Versión con transición CSS suave
-export function toggleTextVisibilityWithTransition() {
+// Función para mostrar con animación
+export function showText() {
   const paragraphContainer = document.querySelector('.paragraph-container');
-  
-  if (!paragraphContainer) {
-    console.error('No se encontró el elemento con clase "paragraph-container"');
-    return;
-  }
-  
-  // Agregar transición suave (opcional)
-  paragraphContainer.style.transition = 'opacity 0.3s ease, visibility 0.3s ease';
-  
-  if (paragraphContainer.style.visibility === 'hidden' || paragraphContainer.style.visibility === '') {
+  if (paragraphContainer) {
+    paragraphContainer.style.display = 'flex';
     paragraphContainer.style.visibility = 'visible';
-    paragraphContainer.style.opacity = '1';
-  } else {
-    paragraphContainer.style.visibility = 'hidden';
+    
+    setTimeout(() => {
+      paragraphContainer.style.opacity = '1';
+    }, 10);
+  }
+}
+
+// Función para ocultar con animación
+export function hideText() {
+  const paragraphContainer = document.querySelector('.paragraph-container');
+  if (paragraphContainer) {
     paragraphContainer.style.opacity = '0';
+    paragraphContainer.style.visibility = 'hidden';
+    
+    setTimeout(() => {
+      paragraphContainer.style.display = 'none';
+    }, 2000); // 2 segundos para coincidir con la transición
   }
 }

@@ -3,7 +3,7 @@
     flex-direction: row;
     justify-content: center;
     position: relative;
-    top: 8vh;
+    top: -1vh;
     user-select: none;
     text-shadow: 3px 3px 3px #000000;
 }
@@ -20,7 +20,7 @@
     width: 1vw;
 }
 
-.footer-github {
+.footer-links {
     font-family: 'Cormorant Garamond', serif;
     font-size: 2rem;
     color: #E8E8E8;
@@ -30,7 +30,31 @@
     transition: color 0.4s ease;
 }
 
-.footer-github:hover {
+.footer-links:hover {
     color: #0077CC;
     user-select: none;
+}
+
+.discord-link {
+  display: inline-block;
+  text-decoration: none;
+}
+
+.discord-logo {
+    position: absolute;
+    top: -6vh;
+    left: 93.50vw;
+    width: 5vw;
+    border-radius: 50%;
+    user-select: none;
+    -webkit-user-drag: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    cursor: pointer;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.discord-logo:hover {
+    user-select: none;
+    transform: scale(1.1);
 }
