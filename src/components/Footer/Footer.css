@@ -1,0 +1,35 @@
+.footer-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    position: relative;
+    margin-top: 5vh;
+    user-select: none;
+    text-shadow: 3px 3px 3px #000000;
+}
+
+.footer-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    color: white;
+    user-select: none;
+    margin: 0;
+}
+
+.white-space-footer {
+    width: 1vw;
+}
+
+.footer-github {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    color: white;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.footer-github:hover {
+    color: #0077CC;
+    user-select: none;
+}

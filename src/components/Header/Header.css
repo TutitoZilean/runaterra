@@ -2,8 +2,8 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    position: absolute;
-    width: 99.60vw;
+    position: relative;
+    width: 98vw;
     top: 7.5vh;
     z-index: 10;
 }
@@ -21,7 +21,7 @@
     position: absolute;
     pointer-events: none;
     top: 1.5vh;
-    left: 8vw;
+    left: 7.7vw;
     font-size: 1.5rem;
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
@@ -42,9 +42,10 @@
 
 #text-reset {
     position: absolute;
+    user-select: none;
     pointer-events: none;
     top: 1.3vh;
-    left: 88.10vw;
+    left: 86.90vw;
     font-size: 1.8rem;
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
