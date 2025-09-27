@@ -21,7 +21,7 @@
     position: absolute;
     pointer-events: none;
     top: 1.5vh;
-    left: 8.3vw;
+    left: 8vw;
     font-size: 1.5rem;
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
@@ -32,9 +32,31 @@
 
 #rules-scroll {
     position: relative;
+    cursor: "pointer";
     width: 6vw;
     transform: rotate(-40deg);
     user-select: none;
     border-radius: 24%;
+    z-index: 8;
+}
+
+#text-reset {
+    position: absolute;
+    pointer-events: none;
+    top: 1.3vh;
+    left: 88.10vw;
+    font-size: 1.8rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color:  #FFFFFF;
+    text-shadow: 3px 3px 1px #000000;
+    z-index: 9;
+}
+
+#reset-svg {
+    cursor: pointer;
+    width: 5vw;
+    transform: rotate(-15deg) rotateX(-38deg) rotateY(0deg);
+    transform-style: preserve-3d;
     z-index: 8;
 }
