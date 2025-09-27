@@ -3,7 +3,7 @@
     flex-direction: row;
     justify-content: center;
     position: relative;
-    margin-top: 5vh;
+    top: 8vh;
     user-select: none;
     text-shadow: 3px 3px 3px #000000;
 }
@@ -11,7 +11,7 @@
 .footer-text {
     font-family: 'Cormorant Garamond', serif;
     font-size: 2rem;
-    color: white;
+    color: #E8E8E8;
     user-select: none;
     margin: 0;
 }
@@ -23,10 +23,11 @@
 .footer-github {
     font-family: 'Cormorant Garamond', serif;
     font-size: 2rem;
-    color: white;
+    color: #E8E8E8;
     text-decoration: none;
     user-select: none;
     -webkit-user-drag: none;
+    transition: color 0.4s ease;
 }
 
 .footer-github:hover {

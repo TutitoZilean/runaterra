@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
 .header-main {
     display: flex;
     justify-content: space-around;
@@ -13,8 +15,54 @@
     height: fit-content;
 }
 
-.white-space {
+.page-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
     width: 50vw;
+    user-select: none;
+    font-size: 2.4rem;
+    font-family: 'Cormorant Garamond', serif;
+    z-index: 9;
+}
+
+.text-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.2rem;
+    font-weight: bold;
+    background: linear-gradient(270deg,
+            #FF0000, #FF3F00, #FF7F00, #FFBF00, #FFFF00, #BFFF00, #00FF00, #007FFF, #0000FF,
+            #240097, #4B0082, #240097, #0000FF, #007FFF, #00FF00, #BFFF00, #FFFF00, #FFBF00,
+            #FF7F00, #FF3F00, #FF0000);
+    background-size: 3000% 3000%;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(2.5px 2.5px 2.5px #000000);
+    animation: gradienteAnim 84s linear infinite;
+    margin: 0%;
+    z-index: 8;
+}
+
+@keyframes gradienteAnim {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    25% {
+        background-position: 50% 100%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    75% {
+        background-position: 50% 0%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 #text-rules {
@@ -32,7 +80,7 @@
 
 #rules-scroll {
     position: relative;
-    cursor: "pointer";
+    cursor: pointer;
     width: 6vw;
     transform: rotate(-40deg);
     user-select: none;
@@ -49,7 +97,7 @@
     font-size: 1.8rem;
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
-    color:  #FFFFFF;
+    color: #FFFFFF;
     text-shadow: 3px 3px 1px #000000;
     z-index: 9;
 }

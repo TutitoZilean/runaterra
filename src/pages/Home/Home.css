@@ -19,10 +19,13 @@
 }
 
 .paragraph-p {
+    color: #E8E8E8;
+    position: relative;
+    top: 5vh;
     font-family: 'Helvetica', serif;
     text-indent: 2em;
     line-height: 1.25;
-    text-shadow: 2.5px 2.5px 2.5px #000000;
+    text-shadow: 3px 3px 1px #000000;
     user-select: none;
     margin: 0%;
 }
