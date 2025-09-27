@@ -6,21 +6,19 @@
 }
 
 .paragraph-container {
-    display: none;
+    visibility: visible;
+    opacity: 0;
+    position: absolute;
+    transition: opacity 0.4s ease-in-out;
     flex-direction: column;
+    justify-content: center;
     text-align: justify;
     align-items: center;
-    position: relative;
     width: 60vw;
-    left: 18vw;
+    left: 19.50vw;
     font-size: 1.5rem;
     color: #FFFF;
     user-select: none;
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 2s ease-in-out, visibility 2s ease-in-out;
-    height: auto;
-    min-height: 0;
 }
 
 .paragraph-p {
@@ -39,4 +37,183 @@
     user-select: none;
     -webkit-user-drag: none;
     pointer-events: none;
+}
+
+#aguasestancadas {
+    width: 11vw;
+}
+
+#ciudaddebandle {
+    width: 10vw;
+}
+
+#demacia {
+    width: 11vw;
+}
+
+#elvacio {
+    width: 11vw;
+}
+
+#freljord {
+    width: 10.50vw;
+}
+
+#islasdelasombra {
+    width: 9vw;
+}
+
+#ixtal {
+    width: 9vw;
+}
+
+#jonia {
+    width: 11vw;
+}
+
+#noxus {
+    width: 10vw;
+}
+
+#piltover {
+    width: 10vw;
+}
+
+#runaterra {
+    width: 10vw;
+}
+
+#shurima {
+    width: 12vw;
+}
+
+#targon {
+    width: 11vw;
+}
+
+#zaun {
+    width: 10vw;
+}
+
+.grid-faction-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.first-faction-icons {
+    display: grid;
+    position: relative;
+    top: 7vh;
+    left: 4vw;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(7, 1fr);
+    gap: 2vh;
+    width: fit-content;
+    height: fit-content;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+}
+
+.second-faction-icons {
+    display: grid;
+    position: relative;
+    top: 7vh;
+    left: -3.9vw;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(7, 1fr);
+    gap: 2vh;
+    width: fit-content;
+    height: fit-content;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+}
+
+/* Controles de selección */
+.selection-controls {
+    text-align: center;
+    margin: 30px 0;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    z-index: 10;
+}
+
+.selection-status {
+    color: #c8aa6e;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    min-height: 30px;
+    z-index: 10;
+}
+
+.control-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    z-index: 10;
+}
+
+.random-btn {
+    background: linear-gradient(45deg, #4CAF50, #45a049);
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.random-btn:hover:not(:disabled) {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+    z-index: 10;
+}
+
+.random-btn:disabled {
+    background: #666;
+    cursor: not-allowed;
+    transform: none;
+    z-index: 10;
+}
+
+.reset-btn {
+    background: linear-gradient(45deg, #ff6b6b, #ee5a5a);
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.reset-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+    z-index: 10;
+}
+
+/* Estados de las facciones seleccionadas */
+.faction-icon.selected {
+    border: 3px solid #c8aa6e !important;
+    z-index: 10;
+}
+
+.faction-icon.first-selected {
+    border: 3px solid #4CAF50 !important;
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.6);
+    z-index: 10;
+}
+
+.faction-icon.second-selected {
+    border: 3px solid #2196F3 !important;
+    box-shadow: 0 0 20px rgba(33, 150, 243, 0.6);
+    z-index: 10;
 }

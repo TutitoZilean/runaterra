@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import AguasEstancadas from '../../img/factions/aguasestancadas.webp';
@@ -15,8 +16,24 @@ import Shurima from '../../img/factions/shurima.webp';
 import Targon from '../../img/factions/targon.webp';
 import Zaun from '../../img/factions/zaun.webp';
 import './Home.css'
+import { initRandomSelector, selectRandomFactions, resetSelection } from '../../scripts/randomFactionSelector.js';
 
-function Rules() {
+function Home() {
+    const [isInitialized, setIsInitialized] = useState(false);
+
+    useEffect(() => {
+        const initialize = async () => {
+            await initRandomSelector();
+            setIsInitialized(true);
+        };
+        initialize();
+    }, []);
+
+    const handleRandomSelect = () => {
+        if (isInitialized) {
+            selectRandomFactions();
+        }
+    };
 
     return (
         <>
@@ -29,27 +46,132 @@ function Rules() {
                 <p className="paragraph-p">En el caso de que X jugadores no tenga dicho campeón que le ha tocado, como "penalización" se vuelve a elegir región nuevamente y el equipo contrario del jugador es el que hace la selección.</p><br></br>
                 <p className="paragraph-p">El propósito para este evento es jugar por diversión no para tryhardear, no me seas un neandertal sin vida que para eso, te vas a rankear a diamante.</p>
             </div>
+
+            {/* Controles de selección aleatoria */}
+            <div className="selection-controls">
+                <div id="selection-status" className="selection-status">
+                    {isInitialized ? 'Haz clic para seleccionar 2 facciones aleatorias' : 'Cargando datos...'}
+                </div>
+
+                <div className="control-buttons">
+                    <button
+                        className="random-btn"
+                        onClick={handleRandomSelect}
+                        disabled={!isInitialized}
+                    >
+                        🎲 Seleccionar 2 Facciones Aleatorias
+                    </button>
+
+                    <button
+                        className="reset-btn"
+                        onClick={resetSelection}
+                    >
+                        🔄 Reiniciar
+                    </button>
+                </div>
+                // Agrega esto en tus controles
+                <button onClick={() => console.log(getSystemStatus())}>
+                    🔍 Debug System
+                </button>
+            </div>
+
             <div className="no-drag-container">
-                <div className="faction-icons">
-                    <img src={AguasEstancadas} alt="Aguas Estancadas" id="aguasestancadas" />
-                    <img src={CiudadDeBandle} alt="Ciudad de Bandle" id="ciudaddebandle" />
-                    <img src={Demacia} alt="Demacia" id="demacia"/>
-                    <img src={ElVacio} alt="El Vacío" id="elvacio" />
-                    <img src={Freljord} alt="Freljord" id="freljord" />
-                    <img src={IslasDeLaSombra} alt="Islas de la sombra" id="islasdelasombra" />
-                    <img src={Ixtal} alt="Ixtal" id="ixtal"/>
-                    <img src={Jonia} alt="Jonia" id="jonia"/>
-                    <img src={Noxus} alt="Noxus" id="noxus"/>
-                    <img src={Piltover} alt="Piltover" id="noxus"/>
-                    <img src={Runaterra} alt="Runaterra" id="runaterra"/>
-                    <img src={Shurima} alt="Shurima" id="shurima"/>
-                    <img src={Targon} alt="Targon" id="targon"/>
-                    <img src={Zaun} alt="Zaun" id="zaun"/>
+                <div className="grid-faction-container">
+                    <div className="first-faction-icons">
+                        <img src={AguasEstancadas} alt="Aguas Estancadas" id="aguasestancadas" className="faction-icon" />
+                        <img src={CiudadDeBandle} alt="Ciudad de Bandle" id="ciudaddebandle" className="faction-icon" />
+                        <img src={Demacia} alt="Demacia" id="demacia" className="faction-icon" />
+                        <img src={ElVacio} alt="El Vacío" id="elvacio" className="faction-icon" />
+                        <img src={Freljord} alt="Freljord" id="freljord" className="faction-icon" />
+                        <img src={IslasDeLaSombra} alt="Islas de la sombra" id="islasdelasombra" className="faction-icon" />
+                        <img src={Ixtal} alt="Ixtal" id="ixtal" className="faction-icon" />
+                    </div>
+                    <div className="second-faction-icons">
+                        <img src={Jonia} alt="Jonia" id="jonia" className="faction-icon" />
+                        <img src={Noxus} alt="Noxus" id="noxus" className="faction-icon" />
+                        <img src={Piltover} alt="Piltover" id="piltover" className="faction-icon" />
+                        <img src={Runaterra} alt="Runaterra" id="runaterra" className="faction-icon" />
+                        <img src={Shurima} alt="Shurima" id="shurima" className="faction-icon" />
+                        <img src={Targon} alt="Targon" id="targon" className="faction-icon" />
+                        <img src={Zaun} alt="Zaun" id="zaun" className="faction-icon" />
+                    </div>
                 </div>
             </div>
+
+            {/* Contenedores para campeones - se llenarán dinámicamente por el script */}
+            <div id="aguasestancadas-champions" className="faction-champions">
+                <h3>Campeones de Aguas Estancadas</h3>
+                <div className="champions-grid"></div>
+            </div>
+
+            <div id="ciudaddebandle-champions" className="faction-champions">
+                <h3>Campeones de Ciudad de Bandle</h3>
+                <div className="champions-grid"></div>
+            </div>
+
+            <div id="demacia-champions" className="faction-champions">
+                <h3>Campeones de Demacia</h3>
+                <div className="champions-grid"></div>
+            </div>
+
+            <div id="elvacio-champions" className="faction-champions">
+                <h3>Campeones de El Vacío</h3>
+                <div className="champions-grid"></div>
+            </div>
+
+            <div id="freljord-champions" className="faction-champions">
+                <h3>Campeones de Freljord</h3>
+                <div className="champions-grid"></div>
+            </div>
+
+            <div id="islasdelasombra-champions" className="faction-champions">
+                <h3>Campeones de Islas de la Sombra</h3>
+                <div className="champions-grid"></div>
+            </div>
+
+            <div id="ixtal-champions" className="faction-champions">
+                <h3>Campeones de Ixtal</h3>
+                <div className="champions-grid"></div>
+            </div>
+
+            <div id="jonia-champions" className="faction-champions">
+                <h3>Campeones de Jonia</h3>
+                <div className="champions-grid"></div>
+            </div>
+
+            <div id="noxus-champions" className="faction-champions">
+                <h3>Campeones de Noxus</h3>
+                <div className="champions-grid"></div>
+            </div>
+
+            <div id="piltover-champions" className="faction-champions">
+                <h3>Campeones de Piltover</h3>
+                <div className="champions-grid"></div>
+            </div>
+
+            <div id="runaterra-champions" className="faction-champions">
+                <h3>Campeones de Runaterra</h3>
+                <div className="champions-grid"></div>
+            </div>
+
+            <div id="shurima-champions" className="faction-champions">
+                <h3>Campeones de Shurima</h3>
+                <div className="champions-grid"></div>
+            </div>
+
+            <div id="targon-champions" className="faction-champions">
+                <h3>Campeones de Targon</h3>
+                <div className="champions-grid"></div>
+            </div>
+
+            <div id="zaun-champions" className="faction-champions">
+                <h3>Campeones de Zaun</h3>
+                <div className="champions-grid"></div>
+            </div>
+
             <Footer />
         </>
     )
 }
 
-export default Rules;
+export default Home;

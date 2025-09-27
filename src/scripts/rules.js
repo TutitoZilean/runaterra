@@ -1,4 +1,4 @@
-// Función con animación suave que termina en display: none
+// Función con animación suave solo con visibility
 export function toggleTextVisibility() {
   const paragraphContainer = document.querySelector('.paragraph-container');
   
@@ -7,25 +7,18 @@ export function toggleTextVisibility() {
     return;
   }
   
-  if (paragraphContainer.style.display === 'none' || paragraphContainer.style.display === '') {
-    // MOSTRAR: Animación suave
-    paragraphContainer.style.display = 'flex'; // Usa flex para mantener tu estilo
+  if (paragraphContainer.style.visibility === 'hidden' || paragraphContainer.style.visibility === '') {
+    // MOSTRAR: Cambiar a visible con animación
     paragraphContainer.style.visibility = 'visible';
-    
-    // Timeout muy corto para que aplique el display antes de la animación
-    setTimeout(() => {
-      paragraphContainer.style.opacity = '1';
-    }, 10); // Solo 10ms, no 400ms
-    
+    paragraphContainer.style.opacity = '1';
   } else {
-    // OCULTAR: Primero animación, luego display: none
+    // OCULTAR: Cambiar a hidden con animación
     paragraphContainer.style.opacity = '0';
-    paragraphContainer.style.visibility = 'hidden';
     
-    // Esperar a que termine la animación para aplicar display: none
+    // Esperar a que termine la animación para cambiar visibility
     setTimeout(() => {
-      paragraphContainer.style.display = 'none';
-    }, 2000); // MISMO tiempo que la transición CSS (2 segundos)
+      paragraphContainer.style.visibility = 'hidden';
+    }, 400); // Tiempo de la transición CSS
   }
 }
 
@@ -33,12 +26,8 @@ export function toggleTextVisibility() {
 export function showText() {
   const paragraphContainer = document.querySelector('.paragraph-container');
   if (paragraphContainer) {
-    paragraphContainer.style.display = 'flex';
     paragraphContainer.style.visibility = 'visible';
-    
-    setTimeout(() => {
-      paragraphContainer.style.opacity = '1';
-    }, 10);
+    paragraphContainer.style.opacity = '1';
   }
 }
 
@@ -47,10 +36,9 @@ export function hideText() {
   const paragraphContainer = document.querySelector('.paragraph-container');
   if (paragraphContainer) {
     paragraphContainer.style.opacity = '0';
-    paragraphContainer.style.visibility = 'hidden';
     
     setTimeout(() => {
-      paragraphContainer.style.display = 'none';
-    }, 2000); // 2 segundos para coincidir con la transición
+      paragraphContainer.style.visibility = 'hidden';
+    }, 400);
   }
 }
