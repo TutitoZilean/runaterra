@@ -1,432 +1,362 @@
+// randomFactionSelector.js
+
+// Variables globales
 let availableFactions = [];
 let selectedFactions = [];
 let championsData = [];
 let isInitialized = false;
 let lastSelectedFactions = [];
 
-// DATOS DE EJEMPLO COMPLETOS Y GARANTIZADOS
+// Callbacks para React
+let onFactionsChangeCallback = null;
+let onChampionsChangeCallback = null;
+
+// DATOS DE FACCIONES CON NOMBRES FORMATEADOS
+const FACTION_NAMES = {
+    'aguasestancadas': 'Aguas Estancadas',
+    'ciudaddebandle': 'Ciudad de Bandle', 
+    'demacia': 'Demacia',
+    'elvacio': 'El Vacío',
+    'freljord': 'Freljord',
+    'islasdelasombra': 'Islas de la Sombra',
+    'ixtal': 'Ixtal',
+    'jonia': 'Jonia',
+    'noxus': 'Noxus',
+    'piltover': 'Piltover',
+    'runaterra': 'Runaterra',
+    'shurima': 'Shurima',
+    'targon': 'Targon',
+    'zaun': 'Zaun'
+};
+
+// DATOS DE EJEMPLO (simplificado para prueba)
 const FALLBACK_CHAMPIONS_DATA = [
-    {"name": "Gangplank", "faction": "Aguas Estancadas"},
-    {"name": "Graves", "faction": "aguasestancadas"},
-    {"name": "Illaoi", "faction": "Aguas Estancadas"},
-    {"name": "Miss Fortune", "faction": "aguasestancadas"},
-    {"name": "Nautilus", "faction": "Aguas Estancadas"},
-    {"name": "Nilah", "faction": "Aguas Estancadas"},
-    {"name": "Pyke", "faction": "aguasestancadas"},
-    {"name": "Twisted Fate", "faction": "aguasestancadas"},
-    
-    {"name": "Corki", "faction": "Ciudad de Bandle"},
-    {"name": "Lulu", "faction": "Ciudad de Bandle"},
-    {"name": "Rumble", "faction": "Ciudad de Bandle"},
-    {"name": "Teemo", "faction": "ciudaddebandle"},
-    {"name": "Tristana", "faction": "ciudaddebandle"},
-    {"name": "Veigar", "faction": "Ciudad de Bandle"},
-    {"name": "Yuumi", "faction": "Ciudad de Bandle"},
-    
-    {"name": "Fiora", "faction": "Demacia"},
-    {"name": "Galio", "faction": "Demacia"},
-    {"name": "Garen", "faction": "demacia"},
-    {"name": "Jarvan IV", "faction": "Demacia"},
-    {"name": "Kayle", "faction": "Demacia"},
-    {"name": "Lux", "faction": "demacia"},
-    {"name": "Morgana", "faction": "Demacia"},
-    {"name": "Poppy", "faction": "Demacia"},
-    {"name": "Quinn", "faction": "Demacia"},
-    {"name": "Shyvana", "faction": "Demacia"},
-    {"name": "Sona", "faction": "Demacia"},
-    {"name": "Sylas", "faction": "Demacia"},
-    {"name": "Vayne", "faction": "Demacia"},
-    {"name": "Xin Zhao", "faction": "demacia"},
-    
-    {"name": "Bel'Veth", "faction": "El Vacío"},
-    {"name": "Cho'Gath", "faction": "elvacio"},
-    {"name": "Kai'Sa", "faction": "elvacio"},
-    {"name": "Kassadin", "faction": "elvacio"},
-    {"name": "Kha'Zix", "faction": "El Vacío"},
-    {"name": "Kog'Maw", "faction": "El Vacío"},
-    {"name": "Malzahar", "faction": "El Vacío"},
-    {"name": "Rek'Sai", "faction": "El Vacío"},
-    {"name": "Vel'Koz", "faction": "El Vacío"},
-    
-    {"name": "Anivia", "faction": "Freljord"},
-    {"name": "Ashe", "faction": "Freljord"},
-    {"name": "Aurora", "faction": "Freljord"},
-    {"name": "Braum", "faction": "Freljord"},
-    {"name": "Gnar", "faction": "Freljord"},
-    {"name": "Gragas", "faction": "Freljord"},
-    {"name": "Lissandra", "faction": "Freljord"},
-    {"name": "Nunu y Willump", "faction": "Freljord"},
-    {"name": "Olaf", "faction": "Freljord"},
-    {"name": "Ornn", "faction": "Freljord"},
-    {"name": "Sejuani", "faction": "Freljord"},
-    {"name": "Trundle", "faction": "Freljord"},
-    {"name": "Tryndamere", "faction": "Freljord"},
-    {"name": "Udyr", "faction": "Freljord"},
-    {"name": "Volibear", "faction": "Freljord"},
-    
-    {"name": "Elise", "faction": "Islas de la sombra"},
-    {"name": "Gwen", "faction": "Islas de la sombra"},
-    {"name": "Hecarim", "faction": "islasdelasombra"},
-    {"name": "Kalista", "faction": "Islas de la sombra"},
-    {"name": "Karthus", "faction": "islasdelasombra"},
-    {"name": "Maokai", "faction": "Islas de la sombra"},
-    {"name": "Thresh", "faction": "islasdelasombra"},
-    {"name": "Vex", "faction": "Islas de la sombra"},
-    {"name": "Viego", "faction": "Islas de la sombra"},
-    {"name": "Yorick", "faction": "Islas de la sombra"},
-    
-    {"name": "Malphite", "faction": "Ixtal"},
-    {"name": "Milio", "faction": "Ixtal"},
-    {"name": "Neeko", "faction": "ixtal"},
-    {"name": "Nidalee", "faction": "Ixtal"},
-    {"name": "Qiyana", "faction": "ixtal"},
-    {"name": "Rengar", "faction": "Ixtal"},
-    {"name": "Skarner", "faction": "Ixtal"},
-    {"name": "Zyra", "faction": "ixtal"},
-    
-    {"name": "Yasuo", "faction": "jonia"},
-    {"name": "Ahri", "faction": "jonia"},
-    {"name": "Irelia", "faction": "jonia"},
-    {"name": "Zed", "faction": "jonia"},
-    
-    {"name": "Darius", "faction": "noxus"},
-    {"name": "Katarina", "faction": "noxus"},
-    {"name": "Swain", "faction": "noxus"},
-    {"name": "Draven", "faction": "noxus"},
-    
-    {"name": "Caitlyn", "faction": "Piltover"},
-    {"name": "Camille", "faction": "Piltover"},
-    {"name": "Ezreal", "faction": "Piltover"},
-    {"name": "Heimerdinger", "faction": "Piltover"},
-    {"name": "Jayce", "faction": "piltover"},
-    {"name": "Orianna", "faction": "Piltover"},
-    {"name": "Seraphine", "faction": "Piltover"},
-    {"name": "Vi", "faction": "piltover"},
-    
-    {"name": "Ryze", "faction": "runaterra"},
-    {"name": "Brand", "faction": "runaterra"},
-    {"name": "Aatrox", "faction": "runaterra"},
-    
-    {"name": "Azir", "faction": "shurima"},
-    {"name": "Renekton", "faction": "shurima"},
-    {"name": "Nasus", "faction": "shurima"},
-    
-    {"name": "Leona", "faction": "targon"},
-    {"name": "Diana", "faction": "targon"},
-    {"name": "Pantheon", "faction": "targon"},
-    
-    {"name": "Jinx", "faction": "zaun"},
-    {"name": "Ekko", "faction": "zaun"},
-    {"name": "Warwick", "faction": "zaun"}
+    {"name": "Gangplank", "faction": "Aguas Estancadas", "image": "gangplank.webp", "title": "El Corsario"},
+    {"name": "Graves", "faction": "aguasestancadas", "image": "graves.webp", "title": "El Forajido"},
+    {"name": "Darius", "faction": "noxus", "image": "darius.webp", "title": "La Mano de Noxus"},
+    {"name": "Katarina", "faction": "noxus", "image": "katarina.webp", "title": "La Cuchilla Siniestra"},
+    {"name": "Ashe", "faction": "freljord", "image": "ashe.webp", "title": "La Arquera de Hielo"},
+    {"name": "Tryndamere", "faction": "freljord", "image": "tryndamere.webp", "title": "El Rey Bárbaro"},
+    {"name": "Ahri", "faction": "jonia", "image": "ahri.webp", "title": "La Mujer Zorro"},
+    {"name": "Yasuo", "faction": "jonia", "image": "yasuo.webp", "title": "El Imperdonable"}
 ];
+
+// Configurar callbacks para React
+export function setCallbacks({ onFactionsChange, onChampionsChange }) {
+    onFactionsChangeCallback = onFactionsChange;
+    onChampionsChangeCallback = onChampionsChange;
+}
 
 // INICIALIZACIÓN GARANTIZADA
 function guaranteeChampionsData() {
-    console.log('🛡️ Garantizando datos de campeones...');
-    
-    // Si championsData está vacío, usar datos de ejemplo
     if (!championsData || championsData.length === 0) {
-        console.log('📦 Usando datos de ejemplo garantizados');
         championsData = [...FALLBACK_CHAMPIONS_DATA];
     }
     
-    // Verificar que los datos tengan la estructura correcta
     championsData = championsData.filter(champ => 
         champ && champ.name && champ.faction
     );
     
-    console.log('✅ Datos garantizados:', championsData.length, 'campeones válidos');
     return championsData;
 }
 
-// Cargar datos desde JSON - VERSIÓN SIMPLIFICADA
-export async function loadChampionsData() {
-    try {
-        console.log('🌐 Intentando cargar datos de campeones...');
-        
-        const response = await fetch('/data/champions.json');
-        
-        if (response.ok) {
-            const data = await response.json();
-            if (Array.isArray(data) && data.length > 0) {
-                championsData = data;
-                console.log('✅ Datos JSON cargados:', championsData.length, 'campeones');
-                return;
-            }
-        }
-        
-        throw new Error('JSON vacío o inválido');
-        
-    } catch (error) {
-        console.warn('❌ Error cargando JSON:', error.message);
-        console.log('🔄 Usando datos de ejemplo...');
-    }
-    
-    // Garantizar que siempre hay datos
-    guaranteeChampionsData();
+// NORMALIZACIÓN DE FACCIONES
+function normalizeFactionId(faction) {
+    return faction.toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/\s+/g, '');
 }
 
-// INICIALIZACIÓN DE FACCIONES - VERSIÓN ROBUSTA
+// CARGA DE DATOS DESDE JSON - VERSIÓN MEJORADA
+export async function loadChampionsData() {
+    try {
+        console.log('🌐 Cargando datos REALES de campeones...');
+        
+        // IMPORTANTE: Asegúrate de que la ruta sea correcta
+        const response = await fetch('/data/champions.json');
+        
+        if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        console.log('📦 Datos JSON recibidos:', data);
+        
+        if (Array.isArray(data) && data.length > 0) {
+            championsData = data;
+            console.log('✅ JSON REAL cargado correctamente:', championsData.length, 'campeones');
+            
+            // Mostrar estadísticas de las facciones cargadas
+            const loadedFactions = [...new Set(data.map(champ => champ.faction))];
+            console.log('🎯 Facciones encontradas en JSON:', loadedFactions);
+            console.log('📊 Conteo por facción:');
+            
+            loadedFactions.forEach(faction => {
+                const count = data.filter(champ => champ.faction === faction).length;
+                console.log(`   ${faction}: ${count} campeones`);
+            });
+            
+            return true;
+        } else {
+            throw new Error('JSON vacío o no es un array');
+        }
+        
+    } catch (error) {
+        console.error('❌ Error cargando JSON real:', error);
+        console.log('🔄 Usando datos de fallback...');
+        
+        // Usar datos de fallback mínimos
+        guaranteeChampionsData();
+        return false;
+    }
+}
+
+// INICIALIZACIÓN DE FACCIONES - VERSIÓN QUE USA EL JSON
 function initializeFactions() {
-    console.log('🔄 Inicializando facciones...');
+    console.log('🔄 Inicializando facciones con datos reales...');
     
-    // Garantizar datos primero
+    // Asegurar que tenemos datos
     guaranteeChampionsData();
     
-    // Extraer facciones únicas
+    // Obtener facciones ÚNICAS del JSON
     const uniqueFactions = [...new Set(championsData.map(champ => champ.faction))];
-    availableFactions = uniqueFactions.filter(faction => 
-        faction && typeof faction === 'string' && faction.trim() !== ''
-    );
+    console.log('🎯 Facciones únicas del JSON:', uniqueFactions);
     
-    if (availableFactions.length === 0) {
-        console.error('🚨 CRÍTICO: No se pudieron extraer facciones de los datos');
-        console.log('📊 Datos disponibles:', championsData);
-        
-        // Forzar facciones manualmente como último recurso
-        availableFactions = [
-            'aguasestancadas', 'ciudaddebandle', 'demacia', 'elvacio', 
-            'freljord', 'islasdelasombra', 'ixtal', 'jonia', 
-            'noxus', 'piltover', 'runaterra', 'shurima', 'targon', 'zaun'
-        ];
-        console.log('🆘 Facciones forzadas manualmente');
-    }
+    // Normalizar los nombres de facción
+    const normalizedFactions = uniqueFactions
+        .map(faction => normalizeFactionId(faction))
+        .filter(faction => faction && typeof faction === 'string' && faction.trim() !== '');
     
-    console.log('✅ Facciones inicializadas:', availableFactions);
-    console.log('✅ Total de facciones disponibles:', availableFactions.length);
+    console.log('🔧 Facciones normalizadas:', normalizedFactions);
+    
+    // Combinar con TODAS las facciones posibles para tener un pool completo
+    const allPossibleFactions = Object.keys(FACTION_NAMES);
+    availableFactions = [...new Set([...normalizedFactions, ...allPossibleFactions])];
+    
+    console.log('✅ Pool final de facciones:', availableFactions);
+    console.log('📊 Estadísticas finales:');
+    console.log('   - Total de facciones:', availableFactions.length);
+    console.log('   - Campeones cargados:', championsData.length);
+    
+    availableFactions.forEach(factionId => {
+        const count = championsData.filter(champ => 
+            normalizeFactionId(champ.faction) === factionId
+        ).length;
+        console.log(`   - ${FACTION_NAMES[factionId] || factionId}: ${count} campeones`);
+    });
     
     isInitialized = true;
     return availableFactions;
 }
 
-// VERIFICACIÓN DE INICIALIZACIÓN - VERSIÓN MÁS ROBUSTA
+// VERIFICACIÓN DE INICIALIZACIÓN MEJORADA
 function checkInitialization() {
-    console.log('🔍 Verificando inicialización...');
-    
     if (!isInitialized || availableFactions.length === 0) {
-        console.warn('⚠️ Sistema no inicializado, forzando inicialización...');
+        console.log('🔄 Forzando inicialización...');
         initializeFactions();
     }
     
-    // Verificación final
-    if (availableFactions.length === 0) {
-        console.error('🚨 ERROR CRÍTICO: No hay facciones disponibles después de la inicialización');
-        throw new Error('No se pudieron inicializar las facciones');
+    if (availableFactions.length < 2) {
+        console.error('🚨 CRÍTICO: No hay suficientes facciones disponibles');
+        console.log('📊 Facciones disponibles:', availableFactions);
+        throw new Error(`Solo hay ${availableFactions.length} facciones disponibles (se necesitan al menos 2)`);
     }
-    
-    console.log('✅ Sistema verificado correctamente');
 }
 
-// SELECCIÓN ALEATORIA - VERSIÓN CON MANEJO DE ERRORES MEJORADO
+// INICIALIZACIÓN PRINCIPAL
+export async function initRandomSelector() {
+    try {
+        console.log('🚀 Inicializando selector aleatorio...');
+        await loadChampionsData();
+        initializeFactions();
+        console.log('✅ Selector inicializado correctamente');
+        return true;
+    } catch (error) {
+        console.error('❌ Error en inicialización:', error);
+        return false;
+    }
+}
+
+// OBTENER FACCIONES DISPONIBLES FORMATEADAS - VERSIÓN COMPLETA
+export function getAvailableFactions() {
+    checkInitialization();
+    
+    return availableFactions.map(factionId => {
+        const championCount = championsData.filter(champ => 
+            normalizeFactionId(champ.faction) === factionId
+        ).length;
+        
+        return {
+            id: factionId,
+            name: FACTION_NAMES[factionId] || factionId,
+            championCount: championCount,
+            hasChampions: championCount > 0
+        };
+    });
+}
+
+// OBTENER FACCIONES SELECCIONADAS FORMATEADAS - VERSIÓN MEJORADA
+export function getFormattedSelectedFactions() {
+    // Asegurar que no hay duplicados
+    const uniqueFactions = [...new Set(selectedFactions)];
+    
+    return uniqueFactions.map((factionId, index) => ({
+        id: factionId,
+        name: FACTION_NAMES[factionId] || factionId,
+        // Agregar índice único para evitar keys duplicados en React
+        uniqueKey: `${factionId}_${index}_${Date.now()}`
+    }));
+}
+
+// OBTENER CAMPIONES POR FACCION - VERSIÓN MEJORADA
+export function getChampionsByFaction(factionId) {
+    const normalizedId = normalizeFactionId(factionId);
+    const champions = championsData.filter(champ => 
+        normalizeFactionId(champ.faction) === normalizedId
+    );
+    
+    console.log(`📋 Campeones para ${factionId}:`, champions.length, 'encontrados');
+    return champions;
+}
+
+// OBTENER CAMPIONES POR FACCIONES SELECCIONADAS - VERSIÓN MEJORADA
+export function getChampionsBySelectedFactions() {
+    const result = {};
+    
+    console.log('🎯 Obteniendo campeones para facciones seleccionadas:', selectedFactions);
+    
+    selectedFactions.forEach(factionId => {
+        const factionName = FACTION_NAMES[factionId] || factionId;
+        const champions = getChampionsByFaction(factionId);
+        
+        result[factionName] = champions;
+        console.log(`   ${factionName}: ${champions.length} campeones`);
+    });
+    
+    return result;
+}
+
+// ALGORITMO DE SELECCIÓN ALEATORIA MEJORADO
+function getRandomFactions() {
+    console.log('🔄 Iniciando selección aleatoria...');
+    console.log('📊 Facciones disponibles:', availableFactions);
+    console.log('📝 Última selección:', lastSelectedFactions);
+    
+    let factionsPool = [...availableFactions];
+    
+    // 1. Evitar repetición de la selección anterior
+    if (lastSelectedFactions.length > 0) {
+        factionsPool = factionsPool.filter(faction => !lastSelectedFactions.includes(faction));
+        console.log('🎯 Facciones después de filtrar anteriores:', factionsPool);
+    }
+    
+    // 2. Si el pool filtrado es muy pequeño, usar todas las disponibles
+    if (factionsPool.length < 2) {
+        console.log('⚠️ Pool pequeño, usando todas las facciones');
+        factionsPool = [...availableFactions];
+    }
+    
+    // 3. Selección aleatoria GARANTIZANDO que no se repitan
+    const shuffled = [...factionsPool].sort(() => 0.5 - Math.random());
+    const selected = [];
+    
+    // Tomar la primera facción
+    if (shuffled.length > 0) {
+        selected.push(shuffled[0]);
+    }
+    
+    // Tomar la segunda facción, asegurando que sea diferente
+    if (shuffled.length > 1) {
+        // Buscar una facción diferente a la primera
+        const remainingFactions = shuffled.filter(faction => faction !== selected[0]);
+        if (remainingFactions.length > 0) {
+            selected.push(remainingFactions[0]);
+        } else {
+            // Fallback: si no hay facciones diferentes, usar cualquier otra
+            const allOtherFactions = availableFactions.filter(faction => faction !== selected[0]);
+            if (allOtherFactions.length > 0) {
+                selected.push(allOtherFactions[Math.floor(Math.random() * allOtherFactions.length)]);
+            }
+        }
+    }
+    
+    console.log('✅ Facciones seleccionadas (únicas):', selected);
+    return selected;
+}
+
+// SELECCIÓN ALEATORIA PRINCIPAL - VERSIÓN MEJORADA
 export function selectRandomFactions() {
     try {
         console.log('🎲 Iniciando selección aleatoria...');
         
-        // Verificación robusta
         checkInitialization();
         
-        console.log('🔍 Facciones disponibles:', availableFactions);
-        console.log('📝 Última selección:', lastSelectedFactions);
-        
         if (availableFactions.length < 2) {
-            throw new Error(`Solo hay ${availableFactions.length} facciones disponibles, se necesitan al menos 2`);
+            throw new Error(`Solo hay ${availableFactions.length} facciones disponibles (se necesitan al menos 2)`);
         }
         
-        // Reiniciar selección anterior
-        resetSelection();
+        // Obtener nuevas facciones aleatorias (únicas)
+        selectedFactions = getRandomFactions();
         
-        // Algoritmo de selección mejorado
-        selectedFactions = getRotatingRandomFactions();
+        // Verificar que las facciones sean únicas
+        if (selectedFactions.length === 2 && selectedFactions[0] === selectedFactions[1]) {
+            console.error('🚨 ERROR: Se seleccionaron facciones duplicadas:', selectedFactions);
+            // Forzar selección de facciones diferentes
+            const uniqueFactions = [...new Set(availableFactions)];
+            if (uniqueFactions.length >= 2) {
+                const shuffled = [...uniqueFactions].sort(() => 0.5 - Math.random());
+                selectedFactions = shuffled.slice(0, 2);
+                console.log('🔄 Facciones corregidas:', selectedFactions);
+            } else {
+                throw new Error('No hay suficientes facciones únicas disponibles');
+            }
+        }
         
-        // Guardar para la próxima vez
         lastSelectedFactions = [...selectedFactions];
         
-        console.log('🎯 Facciones seleccionadas:', selectedFactions);
+        console.log('🎯 Facciones finales seleccionadas:', selectedFactions);
         
-        // Mostrar en la interfaz
-        displaySelectedFactions();
-        showSequentialChampions();
+        // Notificar a React sobre el cambio
+        if (onFactionsChangeCallback) {
+            onFactionsChangeCallback(getFormattedSelectedFactions());
+        }
+        
+        return getFormattedSelectedFactions();
         
     } catch (error) {
         console.error('🚨 Error en selectRandomFactions:', error);
-        showErrorToUser(error.message);
+        throw error;
     }
 }
 
-// MOSTRAR ERROR AL USUARIO
-function showErrorToUser(message) {
-    const statusElement = document.querySelector('#selection-status');
-    if (statusElement) {
-        statusElement.textContent = `Error: ${message}`;
-        statusElement.style.color = '#ff4444';
-    }
-}
-
-// ALGORITMO DE SELECCIÓN MEJORADO
-function getRotatingRandomFactions() {
-    let factionsPool = [...availableFactions];
-    
-    // Evitar repetición de la selección anterior
-    if (lastSelectedFactions.length > 0) {
-        console.log('🔄 Evitando facciones anteriores:', lastSelectedFactions);
-        factionsPool = factionsPool.filter(faction => !lastSelectedFactions.includes(faction));
-    }
-    
-    // Si el pool filtrado es muy pequeño, usar todas las disponibles
-    if (factionsPool.length < 2) {
-        console.warn('⚠️ Pool muy pequeño después de filtrar, usando todas las facciones');
-        factionsPool = [...availableFactions];
-    }
-    
-    // Selección aleatoria
-    const shuffled = [...factionsPool].sort(() => 0.5 - Math.random());
-    const selected = shuffled.slice(0, 2);
-    
-    console.log('🔄 Facciones seleccionadas (rotación):', selected);
-    return selected;
-}
-
-// EL RESTO DE FUNCIONES SE MANTIENEN IGUAL...
-function displaySelectedFactions() {
-    document.querySelectorAll('.faction-icon').forEach(icon => {
-        icon.classList.remove('selected', 'first-selected', 'second-selected');
-    });
-    
-    selectedFactions.forEach((factionId, index) => {
-        const icon = document.querySelector(`#${factionId}`);
-        if (icon) {
-            if (index === 0) {
-                icon.classList.add('selected', 'first-selected');
-            } else {
-                icon.classList.add('selected', 'second-selected');
-            }
-        }
-    });
-    
-    updateStatusText();
-}
-
-function showSequentialChampions() {
-    if (selectedFactions.length !== 2) return;
-    
-    const [firstFaction, secondFaction] = selectedFactions;
-    
-    hideAllChampions();
-    
-    setTimeout(() => {
-        showFactionChampions(firstFaction);
-        
-        setTimeout(() => {
-            showFactionChampions(secondFaction);
-        }, 1500);
-    }, 500);
-}
-
-function showFactionChampions(factionId) {
-    const container = document.querySelector(`#${factionId}-champions`);
-    if (!container) {
-        console.warn('⚠️ No se encontró el contenedor para:', factionId);
-        return;
-    }
-    
-    const factionChampions = championsData.filter(champ => champ.faction === factionId);
-    renderChampions(container, factionChampions);
-    
-    container.style.display = 'block';
-    container.style.opacity = '0';
-    
-    setTimeout(() => {
-        container.style.opacity = '1';
-        container.style.transform = 'translateY(0)';
-    }, 10);
-}
-
-function renderChampions(container, champions) {
-    const championsGrid = container.querySelector('.champions-grid');
-    if (!championsGrid) return;
-    
-    championsGrid.innerHTML = champions.map(champion => `
-        <div class="champion-card" data-champion="${champion.name}">
-            <span class="champion-name">${champion.name}</span>
-        </div>
-    `).join('');
-}
-
-function hideAllChampions() {
-    document.querySelectorAll('.faction-champions').forEach(container => {
-        container.style.opacity = '0';
-        container.style.transform = 'translateY(-20px)';
-        setTimeout(() => {
-            container.style.display = 'none';
-        }, 300);
-    });
-}
-
-function updateStatusText() {
-    const statusElement = document.querySelector('#selection-status');
-    if (!statusElement) return;
-    
-    if (selectedFactions.length === 2) {
-        const firstFaction = getFactionName(selectedFactions[0]);
-        const secondFaction = getFactionName(selectedFactions[1]);
-        statusElement.textContent = `Facciones seleccionadas: ${firstFaction} y ${secondFaction}`;
-        statusElement.style.color = '#c8aa6e';
-    } else {
-        statusElement.textContent = 'Haz clic en "Seleccionar Facciones" para comenzar';
-    }
-}
-
-function getFactionName(factionId) {
-    const names = {
-        'aguasestancadas': 'Aguas Estancadas',
-        'ciudaddebandle': 'Ciudad de Bandle',
-        'demacia': 'Demacia',
-        'elvacio': 'El Vacío',
-        'freljord': 'Freljord',
-        'islasdelasombra': 'Islas de la Sombra',
-        'ixtal': 'Ixtal',
-        'jonia': 'Jonia',
-        'noxus': 'Noxus',
-        'piltover': 'Piltover',
-        'runaterra': 'Runaterra',
-        'shurima': 'Shurima',
-        'targon': 'Targon',
-        'zaun': 'Zaun'
-    };
-    
-    return names[factionId] || factionId;
-}
-
+// RESET DE SELECCIÓN
 export function resetSelection() {
     selectedFactions = [];
-    hideAllChampions();
-    updateStatusText();
+    lastSelectedFactions = [];
     
-    document.querySelectorAll('.faction-icon').forEach(icon => {
-        icon.classList.remove('selected', 'first-selected', 'second-selected');
-    });
-}
-
-export async function initRandomSelector() {
-    console.log('🚀 Inicializando selector aleatorio...');
-    try {
-        await loadChampionsData();
-        initializeFactions();
-        updateStatusText();
-        console.log('✅ Selector inicializado correctamente');
-    } catch (error) {
-        console.error('❌ Error en inicialización:', error);
+    // Notificar a React sobre el reset
+    if (onFactionsChangeCallback) {
+        onFactionsChangeCallback([]);
     }
+    
+    console.log('🔄 Selección reiniciada');
 }
 
-// FUNCIÓN DE DEBUG
-export function debugSystem() {
-    console.log('=== DEBUG DEL SISTEMA ===');
-    console.log('isInitialized:', isInitialized);
-    console.log('championsData length:', championsData.length);
-    console.log('availableFactions:', availableFactions);
-    console.log('availableFactions length:', availableFactions.length);
-    console.log('selectedFactions:', selectedFactions);
-    console.log('lastSelectedFactions:', lastSelectedFactions);
-    console.log('========================');
+// FUNCIÓN DE DEBUG MEJORADA
+export function getSystemStatus() {
+    const availableFactionsList = getAvailableFactions();
+    
+    return {
+        isInitialized,
+        championsDataLength: championsData.length,
+        availableFactions: availableFactionsList,
+        selectedFactions: getFormattedSelectedFactions(),
+        lastSelectedFactions,
+        // Información de debug expandida
+        totalFactions: availableFactions.length,
+        factionsWithChampions: availableFactionsList.filter(f => f.hasChampions).length,
+        factionsWithoutChampions: availableFactionsList.filter(f => !f.hasChampions).length,
+        allFactionNames: availableFactionsList.map(f => f.name)
+    };
 }
