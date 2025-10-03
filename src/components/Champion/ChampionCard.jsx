@@ -1,4 +1,4 @@
-import React from 'react';
+import './ChampionCard.css';
 
 const ChampionCardFixed = ({ championName, skinNumber = 0, showName = true, className = "" }) => {
   console.log('ChampionCardFixed - championName:', championName);
@@ -7,7 +7,23 @@ const ChampionCardFixed = ({ championName, skinNumber = 0, showName = true, clas
     return <div className="champion-card error">Error: Sin nombre</div>;
   }
 
-  const formattedName = championName.replace(/'/g, '').replace(/\s/g, '').replace(/\./g, '').trim();
+  // Mapeo de nombres en español a nombres de archivo en inglés
+  const championNameMapping = {
+    "Maestro Yi": "MasterYi",
+    "Kai'Sa": "KaiSa",
+    "Dr. Mundo": "DrMundo",
+    "Wukong": "MonkeyKing",
+  };
+
+  const getFormattedName = (name) => {
+    if (championNameMapping[name]) {
+      return championNameMapping[name];
+    }
+    
+    return name.replace(/'/g, '').replace(/\s/g, '').replace(/\./g, '').trim();
+  };
+
+  const formattedName = getFormattedName(championName);
   const imageUrl = `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${formattedName}_${skinNumber}.jpg`;
 
   return (

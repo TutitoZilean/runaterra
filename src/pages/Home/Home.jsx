@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-import ChampionCard from '../../components/ChampionCard/ChampionCard.jsx';
 import { getChampionImage, getChampionTitle } from '../../utils/championImages.js';
 import './Home.css';
 
@@ -18,7 +17,7 @@ import Jonia from '../../img/factions/jonia.webp';
 import Noxus from '../../img/factions/noxus.webp';
 import Piltover from '../../img/factions/piltover.webp';
 import Runaterra from '../../img/factions/runaterra.webp';
-import Shurima from '../../img/factions/shurima.webp';
+import Shurima from '../../components/Factions/Shurima/Shurima.jsx';
 import Targon from '../../img/factions/targon.webp';
 import Zaun from '../../img/factions/zaun.webp';
 
@@ -254,7 +253,7 @@ Sistema Debug:
                     <img src={Noxus} alt="Noxus" id="noxus" className={`faction-icon ${selectedFactions[0]?.id === 'noxus' ? 'selected moving-to-center' : ''} ${selectedFactions[1]?.id === 'noxus' ? 'selected moving-to-center' : ''}`} />
                     <img src={Piltover} alt="Piltover" id="piltover" className={`faction-icon ${selectedFactions[0]?.id === 'piltover' ? 'selected moving-to-center' : ''} ${selectedFactions[1]?.id === 'piltover' ? 'selected moving-to-center' : ''}`} />
                     <img src={Runaterra} alt="Runaterra" id="runaterra" className={`faction-icon ${selectedFactions[0]?.id === 'runaterra' ? 'selected moving-to-center' : ''} ${selectedFactions[1]?.id === 'runaterra' ? 'selected moving-to-center' : ''}`} />
-                    <img src={Shurima} alt="Shurima" id="shurima" className={`faction-icon ${selectedFactions[0]?.id === 'shurima' ? 'selected moving-to-center' : ''} ${selectedFactions[1]?.id === 'shurima' ? 'selected moving-to-center' : ''}`} />
+                    <Shurima />
                     <img src={Targon} alt="Targon" id="targon" className={`faction-icon ${selectedFactions[0]?.id === 'targon' ? 'selected moving-to-center' : ''} ${selectedFactions[1]?.id === 'targon' ? 'selected moving-to-center' : ''}`} />
                     <img src={Zaun} alt="Zaun" id="zaun" className={`faction-icon ${selectedFactions[0]?.id === 'zaun' ? 'selected moving-to-center' : ''} ${selectedFactions[1]?.id === 'zaun' ? 'selected moving-to-center' : ''}`} />
                 </div>
