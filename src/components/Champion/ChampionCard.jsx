@@ -24,7 +24,7 @@ const ChampionCardFixed = ({ championName, skinNumber = 0, showName = true, clas
   };
 
   const formattedName = getFormattedName(championName);
-  const imageUrl = `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${formattedName}_${skinNumber}.jpg`;
+  const imageUrl = `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${formattedName}_0.jpg`;
 
   return (
       <div className={`champion-card ${className}`}>
