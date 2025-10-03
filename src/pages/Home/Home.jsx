@@ -22,13 +22,13 @@ import Shurima from '../../img/factions/shurima.webp';
 import Targon from '../../img/factions/targon.webp';
 import Zaun from '../../img/factions/zaun.webp';
 
-import {
-    initRandomSelector,
-    selectRandomFactions,
-    resetSelection,
-    getSystemStatus,
-    getChampionsBySelectedFactions
-} from '../../scripts/randomFactionSelector.js';
+// import {
+//     initRandomSelector,
+//     selectRandomFactions,
+//     resetSelection,
+//     getSystemStatus,
+//     getChampionsBySelectedFactions
+// } from '../../scripts/randomFactionSelector.js';
 
 function Home() {
     const [isInitialized, setIsInitialized] = useState(false);

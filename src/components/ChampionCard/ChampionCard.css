@@ -1,14 +1,9 @@
-/* components/ChampionCard/ChampionCard.css */
 .champion-card {
     position: relative;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-    border-radius: 12px;
-    padding: 12px;
     cursor: pointer;
     transition: all 0.3s ease;
     border: 2px solid transparent;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .champion-card:hover:not(.banned) {
@@ -17,148 +12,8 @@
     box-shadow: 0 8px 25px rgba(200, 170, 110, 0.3);
 }
 
-.champion-card.selected {
-    border-color: #28a745;
-    box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
-}
-
 .champion-card.banned {
     cursor: not-allowed;
     opacity: 0.6;
     filter: grayscale(1);
-}
-
-.champion-image-container {
-    position: relative;
-    width: 100%;
-    height: 120px;
-    border-radius: 8px;
-    overflow: hidden;
-    margin-bottom: 10px;
-}
-
-.champion-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.champion-card:hover .champion-image {
-    transform: scale(1.05);
-}
-
-.image-placeholder {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 2em;
-    font-weight: bold;
-}
-
-.banned-overlay,
-.selected-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: bold;
-    font-size: 0.9em;
-    text-align: center;
-}
-
-.banned-overlay {
-    background: rgba(220, 53, 69, 0.8);
-}
-
-.selected-overlay {
-    background: rgba(40, 167, 69, 0.8);
-}
-
-.champion-info {
-    text-align: center;
-}
-
-.champion-name {
-    margin: 0 0 4px 0;
-    color: #ffffff;
-    font-size: 1em;
-    font-weight: 600;
-}
-
-.champion-title {
-    margin: 0 0 6px 0;
-    color: #c8aa6e;
-    font-size: 0.75em;
-    font-style: italic;
-    line-height: 1.2;
-}
-
-.champion-faction {
-    display: inline-block;
-    background: rgba(200, 170, 110, 0.2);
-    color: #c8aa6e;
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-size: 0.7em;
-    font-weight: 500;
-}
-
-/* Efecto de brillo */
-.champion-glow {
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(200, 170, 110, 0.2),
-        transparent
-    );
-    transition: left 0.5s ease;
-}
-
-.champion-card:hover .champion-glow {
-    left: 100%;
-}
-
-/* Estado skeleton */
-.champion-card.skeleton {
-    cursor: default;
-}
-
-.champion-card.skeleton:hover {
-    transform: none;
-    border-color: transparent;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .champion-card {
-        padding: 8px;
-    }
-    
-    .champion-image-container {
-        height: 100px;
-    }
-    
-    .champion-name {
-        font-size: 0.9em;
-    }
-    
-    .champion-title {
-        font-size: 0.7em;
-    }
 }

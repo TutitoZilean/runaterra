@@ -1,0 +1,106 @@
+.champion-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.shurima-extended {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.faction-extended-img {
+    width: 13vw;
+}
+
+.faction-name {
+    font-family: 'Cinzel', 'Times New Roman', serif;
+    font-weight: 900;
+    font-size: clamp(2rem, 5vw, 4rem);
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 4px;
+    margin: 0;
+    padding: 20px 0;
+    position: relative;
+    text-shadow:
+        2px 2px 0px rgba(0, 0, 0, 0.3),
+        4px 4px 0px rgba(0, 0, 0, 0.2);
+}
+
+.faction-name::after {
+    content: '';
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, currentColor, transparent);
+}
+
+#faction-text-shurima {
+    font-family: 'Cinzel', 'Trajan Pro', serif;
+    font-weight: 900;
+    font-size: 2.3rem;
+    text-transform: uppercase;
+    color: #c8aa6e;
+    text-shadow:
+        3px 3px 0 #654321,
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+    letter-spacing: 3px;
+}
+
+.shurima-grid-champion {
+    display: grid;
+    position: relative;
+    grid-template-columns: repeat(5, 1fr);
+    width: fit-content;
+    gap: 0.5rem;
+}
+
+.champion-image {
+    width: 11.50vw;
+    position: relative; /* Asegurar contexto de apilamiento */
+    z-index: 1; /* Imagen en capa base */
+}
+
+.champion-image:hover {
+    z-index: -10;
+}
+
+.champion-fixer {
+    display: grid;
+    position: relative;
+    grid-template-columns: repeat(5, 1fr);
+    width: fit-content;
+    gap: 0.5rem;
+    z-index: 10;
+}
+
+.champion-name {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Cinzel', 'Trajan Pro', serif;
+    font-weight: 900;
+    font-size: 1.8rem; 
+    text-transform: uppercase;
+    color: #c8aa6e;
+    text-shadow:
+    2px 2px 0 #000000,
+    3px 3px 0 #5d4c21,
+    -1px -1px 0 #000000,
+    1px -1px 0 #000000,
+    -1px 1px 0 #000000,
+    1px 1px 0 #000000;
+    letter-spacing: 2px;
+    pointer-events: none;
+}
