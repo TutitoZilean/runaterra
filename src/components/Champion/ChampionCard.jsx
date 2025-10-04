@@ -6,13 +6,21 @@ const ChampionCardFixed = ({ championName, skinNumber = 0, showName = true, clas
   if (!championName) {
     return <div className="champion-card error">Error: Sin nombre</div>;
   }
-
-  // Mapeo de nombres en español a nombres de archivo en inglés
+  
   const championNameMapping = {
     "Maestro Yi": "MasterYi",
     "Kai'Sa": "KaiSa",
     "Dr. Mundo": "DrMundo",
     "Wukong": "MonkeyKing",
+    "Le Blanc": "Leblanc",
+    "Bel'Veth": "Belveth",
+    "Cho'Gath": "Chogath",
+    "Kai'Sa": "Kaisa",
+    "Kha'Zix": "Khazix",
+    "Vel'Koz": "Velkoz",
+    "Nunu y Willump": "Nunu",
+    "Bardo": "Bard",
+    "Renata Glasc": "Renata",
   };
 
   const getFormattedName = (name) => {

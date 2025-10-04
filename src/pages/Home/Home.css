@@ -37,88 +37,36 @@
 .no-drag-container {
     user-select: none;
     -webkit-user-drag: none;
-    /* pointer-events: none; */
 }
 
-#aguasestancadas {
-    width: 11vw;
-}
+/* IDs específicos */
+#aguasestancadas { width: 11vw; }
+#ciudaddebandle { width: 10vw; }
+#demacia { width: 11vw; }
+#elvacio { width: 11vw; }
+#freljord { width: 10.50vw; }
+#islasdelasombra { width: 9vw; }
+#ixtal { width: 9vw; }
+#jonia { width: 11vw; }
+#noxus { width: 10vw; }
+#piltover { width: 10vw; }
+#runaterra { width: 10vw; }
+#shurima { width: 12vw; }
+#targon { width: 11vw; }
+#zaun { width: 10vw; }
 
-#ciudaddebandle {
-    width: 10vw;
-}
-
-#demacia {
-    width: 11vw;
-}
-
-#elvacio {
-    width: 11vw;
-}
-
-#freljord {
-    width: 10.50vw;
-}
-
-#islasdelasombra {
-    width: 9vw;
-}
-
-#ixtal {
-    width: 9vw;
-}
-
-#jonia {
-    width: 11vw;
-}
-
-#noxus {
-    width: 10vw;
-}
-
-#piltover {
-    width: 10vw;
-}
-
-#runaterra {
-    width: 10vw;
-}
-
-#shurima {
-    width: 12vw;
-}
-
-#targon {
-    width: 11vw;
-}
-
-#zaun {
-    width: 10vw;
-}
-
-/* Contenedor principal */
+/* ===== CONTENEDOR PRINCIPAL - MODO FULL ===== */
 .factions-main-container {
     position: relative;
-    min-height: 70vh;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     padding: 0 5vw;
     transition: all 0.5s ease;
+    gap: 20px;
 }
 
-.factions-main-container.show-champions {
-    justify-content: center;
-    align-items: center;
-}
-
-/* Grids originales de facciones */
-.grid-faction-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
+/* Grids laterales - MODO FULL */
 .first-faction-icons {
     display: grid;
     position: relative;
@@ -151,29 +99,69 @@
     transition: all 0.5s ease;
 }
 
-/* CORREGIDO: Problema de pointer-events */
-.no-drag-container {
-    user-select: none;
-    -webkit-user-drag: none;
-    /* REMOVIDO: pointer-events: none; ← Esto bloqueaba los clics */
+/* ===== MODO ICONS-ONLY ===== */
+
+/* Contenedor principal en modo icons-only */
+.factions-main-container.icons-only-view {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 columnas iguales */
+    gap: 69.50vw;
+    top: 7vh;
+    width: fit-content;
+    margin: 0 auto;
+    justify-items: center;
 }
 
-/* Cuando se muestran los campeones, los grids se desvanecen */
+/* Reposicionar segunda columna en modo icons-only */
+.factions-main-container.icons-only-view .second-faction-icons {
+    grid-column: 2;
+    position: static;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: start;
+}
+
+/* Estilos para los iconos en modo icons-only */
+.factions-main-container.icons-only-view .region-extended.icons-only-view {
+    margin: 0;
+    padding: 0;
+}
+
+.factions-main-container.icons-only-view .region-extended.icons-only-view .faction-extended-img {
+    width: 9vw;
+    height: 22vh;
+    margin: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.factions-main-container.icons-only-view .region-extended.icons-only-view .faction-extended-img:hover {
+    transform: scale(1.15);
+    border-color: #c8aa6e;
+    box-shadow: 0 6px 20px rgba(200, 170, 110, 0.5);
+}
+
+/* Ocultar el párrafo en modo icons-only */
+.factions-main-container.icons-only-view ~ .paragraph-container {
+    display: none;
+}
+
+/* ===== ESTILOS EXISTENTES (se mantienen igual) ===== */
+
 .factions-main-container.show-champions .first-faction-icons,
 .factions-main-container.show-champions .second-faction-icons {
     opacity: 0.2;
     transform: scale(0.8);
-    /* AGREGADO: Para asegurar que no interfieran con los clics */
     pointer-events: none;
 }
 
-/* Estilos de los iconos de facción */
 .faction-icon {
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     filter: grayscale(0.3);
     opacity: 0.8;
-    /* AGREGADO: Para asegurar que sean clickeables */
     pointer-events: auto;
 }
 
@@ -191,7 +179,6 @@
 
 .faction-icon.moving-to-center {
     animation: moveToCenter 1s ease-in-out forwards;
-    /* AGREGADO: Para evitar clics durante animación */
     pointer-events: none;
 }
 
@@ -211,7 +198,6 @@
     }
 }
 
-/* Área central para facciones seleccionadas */
 .selected-factions-center {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -252,7 +238,6 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* Grid de campeones en el centro */
 .champions-grid-center {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -261,15 +246,12 @@
     max-width: 600px;
 }
 
-/* Controles de selección */
-/* CONTROLES DE SELECCIÓN - DEBEN estar por encima y ser clickeables */
 .selection-controls {
     text-align: center;
     margin: 20px 5vw;
     padding: 20px;
     background: rgba(26, 26, 46, 0.9);
     border-radius: 10px;
-    /* CRÍTICO: Asegurar que esté por encima y sea clickeable */
     position: relative;
     z-index: 10;
     pointer-events: auto;
@@ -287,13 +269,11 @@
     gap: 15px;
     justify-content: center;
     flex-wrap: wrap;
-    /* CRÍTICO: Asegurar que los botones sean clickeables */
     pointer-events: auto;
     position: relative;
     z-index: 1001;
 }
 
-/* Botones - ASEGURAR que son clickeables */
 .random-btn, .reset-btn, .debug-btn {
     padding: 12px 24px;
     border: none;
@@ -302,7 +282,6 @@
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    /* AGREGADO: Para asegurar que los botones sean clickeables */
     pointer-events: auto;
 }
 

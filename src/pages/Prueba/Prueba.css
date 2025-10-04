@@ -71,15 +71,6 @@
     z-index: -10;
 }
 
-.champion-fixer {
-    display: grid;
-    position: relative;
-    grid-template-columns: repeat(5, 1fr);
-    width: fit-content;
-    gap: 0.5rem;
-    z-index: 10;
-}
-
 .champion-name-jonia {
     position: absolute;
     font-family: 'Playfair Display', 'Noto Serif JP', serif;

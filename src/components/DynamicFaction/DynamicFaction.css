@@ -1,0 +1,156 @@
+.region-extended {
+    display: grid;
+    position: relative;
+    top: 7vh;
+    justify-items: center;
+    transition: all 0.5s ease;
+}
+
+.faction-name {
+    position: absolute;
+    display: flex;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%);
+    font-family: 'Cinzel', 'Times New Roman', serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+
+    text-shadow:
+        1px 1px 1px rgba(2, 15, 18, 0.3),
+        2px 2px 2px rgba(0, 10, 10, 0.2),
+        0px 0px 4px rgba(0, 0, 0, 0.1);
+}
+
+.faction-name--Shurima {
+    text-align: center;
+    font-weight: 900;
+    font-size: 2.3rem;
+    letter-spacing: 3px;
+    color: #c8aa6e;
+    text-shadow:
+        3px 3px 0 #654321,
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+}
+
+.faction-name--Demacia {
+    font-weight: 800;
+    font-size: 2.1rem;
+    letter-spacing: 2px;
+    color: #f0e6d2;
+    text-shadow:
+        2px 2px 0 #5a4c3a,
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+}
+
+.region-grid-champion {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    width: fit-content;
+    gap: 10px;
+}
+
+.champion-name-shurima {
+    position: absolute;
+    font-family: 'Playfair Display', 'Noto Serif JP', serif;
+    bottom: 30px;
+    transform: translateX(-50%);
+    font-weight: 900;
+    font-size: 2.7rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin: 0;
+    text-align: center;
+    background: linear-gradient(135deg, #D1B996 0%, #768A85 30%, #D1B996 70%, #314340 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% 200%;
+    animation: gradienteAnim 84s linear infinite;
+    text-shadow:
+        1px 1px 1px rgba(2, 15, 18, 0.3),
+        2px 2px 2px rgba(0, 10, 10, 0.2),
+        0px 0px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Modo solo iconos */
+.region-extended.icons-only-view {
+     display: grid;
+    grid-template-columns: 1fr 7fr;  /* 2 columnas: 1 parte y 7 partes */
+    grid-template-rows: repeat(7, 1fr); /* 7 filas de igual tamaño */
+    gap: 15px;
+    height: 100vh; /* Necesario para que las rows funcionen */
+    padding: 20px;
+}
+
+.region-extended.icons-only-view .faction-extended-img {
+    width: 80px;
+    height: 80px;
+    margin: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    border-radius: 10px;
+}
+
+.region-extended.icons-only-view .faction-extended-img:hover {
+    transform: scale(1.1);
+    border-color: #c8aa6e;
+    box-shadow: 0 4px 12px rgba(200, 170, 110, 0.4);
+}
+
+/* Ocultar título y campeones en modo icons-only */
+.region-extended.icons-only-view .faction-name--Shurima,
+.region-extended.icons-only-view .faction-name--Demacia,
+.region-extended.icons-only-view .faction-name--Noxus,
+.region-extended.icons-only-view .region-grid-champion {
+    display: none;
+}
+
+.factions-main-container .region-extended.icons-only-view {
+    display: grid;
+    grid-template-columns: 1fr 7fr; /* Columna izquierda pequeña, derecha grande */
+    grid-auto-rows: minmax(80px, auto);
+    gap: 15px;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Las primeras 7 regiones van a columna 1 (izquierda) */
+.factions-main-container .region-extended.icons-only-view:nth-child(-n+7) {
+    grid-column: 1;
+}
+
+/* Las siguientes 7 regiones van a columna 2 (derecha) */  
+.factions-main-container .region-extended.icons-only-view:nth-child(n+8) {
+    grid-column: 2;
+}
+
+/* Estilos específicos para iconos en este layout */
+.factions-main-container .region-extended.icons-only-view .faction-extended-img {
+    width: 60px;
+    height: 60px;
+    margin: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    border-radius: 10px;
+}
+
+.factions-main-container .region-extended.icons-only-view .faction-extended-img:hover {
+    transform: scale(1.1);
+    border-color: #c8aa6e;
+    box-shadow: 0 4px 12px rgba(200, 170, 110, 0.4);
+}
