@@ -11,13 +11,12 @@ const ChampionCard = ({
   
   const championNameMapping = {
     "Maestro Yi": "MasterYi",
-    "Kai'Sa": "KaiSa",
+    "Kai'Sa": "Kaisa",
     "Dr. Mundo": "DrMundo",
     "Wukong": "MonkeyKing",
     "Le Blanc": "Leblanc",
     "Bel'Veth": "Belveth",
     "Cho'Gath": "Chogath",
-    "Kai'Sa" : "Kaisa",
     "Kha'Zix": "Khazix",
     "Vel'Koz": "Velkoz",
     "Bardo": "Bard",

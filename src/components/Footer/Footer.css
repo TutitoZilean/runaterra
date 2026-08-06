@@ -73,3 +73,25 @@
     user-select: none;
     transform: scale(1.1);
 }
+
+/* Responsive Media Queries */
+@media (max-width: 1200px) {
+    .footer-container {
+        margin-top: 40px;
+        gap: 25px;
+        padding-bottom: 30px;
+    }
+
+    .footer-text, .footer-links {
+        font-size: clamp(1.1rem, 3.5vw, 1.6rem);
+        text-align: center;
+    }
+
+    .discord-logo {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 48px;
+        margin-top: 10px;
+    }
+}

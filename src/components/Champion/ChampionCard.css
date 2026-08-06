@@ -9,7 +9,6 @@
   transform-origin: center;
   display: flex;
   flex-direction: column;
-  /* Quitar la sombra del elemento principal */
 }
 
 .champion-card::before {
@@ -60,7 +59,6 @@
   box-shadow: 0 0 0 3px #ff4444;
 }
 
-/* El resto se mantiene igual */
 .champion-card.banned {
   filter: grayscale(100%) brightness(0.4);
   opacity: 0.7;
@@ -118,9 +116,68 @@
   pointer-events: none;
 }
 
-@media (min-width: 768px) {
-  .region-grid-champion {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 15px;
+/* Responsive Overrides ONLY for Mobile and Tablet (<1200px) */
+
+/* ===== TABLET (769px - 1200px) ===== */
+@media (min-width: 768px) and (max-width: 1200px) {
+  .champion-card {
+    aspect-ratio: 9 / 14;
+    height: auto;
+  }
+
+  .champion-name,
+  .champion-name[class*="region-"] {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    box-sizing: border-box;
+    background: linear-gradient(transparent 0%, rgba(0, 0, 0, 0.96) 30%);
+    text-align: center;
+    z-index: 3;
+    pointer-events: none;
+    font-size: clamp(0.95rem, 1.8vw, 1.3rem) !important;
+    font-weight: 800 !important;
+    line-height: 1.15;
+    padding: 10px 4px 6px 4px !important;
+    text-shadow: 2px 2px 4px #000, -2px -2px 4px #000, 0px 0px 6px #000 !important;
+    word-break: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+/* ===== MOBILE (max 768px) ===== */
+@media (max-width: 767px) {
+  .champion-card {
+    aspect-ratio: 9 / 14;
+    height: auto;
+  }
+
+  .champion-name,
+  .champion-name[class*="region-"] {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    box-sizing: border-box;
+    background: linear-gradient(transparent 0%, rgba(0, 0, 0, 0.96) 30%);
+    text-align: center;
+    z-index: 3;
+    pointer-events: none;
+    font-size: clamp(1.15rem, 4vw, 1.5rem) !important;
+    font-weight: 900 !important;
+    line-height: 1.15;
+    padding: 10px 4px 6px 4px !important;
+    text-shadow: 2px 2px 4px #000, -2px -2px 4px #000, 0px 0px 6px #000 !important;
+    word-break: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }
